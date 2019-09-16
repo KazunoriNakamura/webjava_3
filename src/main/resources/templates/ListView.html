@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>InputPanel</title>
+<style>
+tr {margin:5px;}
+th {padding:5px;color:white;background:darkgrey;}
+td {padding:5px;color:black;background:#f0f0f0;}
+</style>
+</head>
+<body>
+<h1>入力画面</h1>
+	<div class="container">
+		<table class="table">
+			<tr>
+				<th width="50">商品ID</th>
+				<th width="150">商品名</th>
+				<!--<th width="150">イメージ</th>-->
+				<th width="50">価格</th>
+				<th width="200"></th>
+			</tr>
+		</table>
+		<th:block th:each="entry: ${itemList}" th:object="${entry}">
+			<form th:action="@{/Show}" method="POST" th:object="${form}">
+
+				<table class="table">
+					<tr>
+						<td width="50" th:text="${entry.value.itemid}"></td>
+						<td width="150" th:text="${entry.value.name}"></td>
+						<!--<img src="nyumon.jpg" alt="商品見本" title="商品イメージ">-->
+						<td width="50" th:text="${entry.value.price}"></td>
+						<td width="200">
+						<input type="hidden" name="itemid"
+							th:value="${entry.value.itemid}">
+							<input type="number" style="width:50px" name="num">
+							<input type="submit" style="width:120px" name="order"
+							value="カートに追加"></td>
+					</tr>
+				</table>
+			</form>
+		</th:block>
+	</div>
+<div class="container">
+<h1>カート情報</h1>
+	<form th:action="@{/Del}" method="POST" th:object="${form}">
+		<table>
+			<tr>
+				<th width="50">商品ID</th>
+				<th width="150">商品名</th>
+				<th width="50">価格</th>
+				<th width="50">個数</th>
+				<th width="150"></th>
+			</tr>
+			<th:block th:each="order: ${orderList}">
+				<tr>
+					<td th:text="${order.itemid}"></td>
+					<td th:text="${itemList.get(order.itemid).name}"></td>
+					<td th:text="${itemList.get(order.itemid).price}"></td>
+					<td th:text="${order.num}"></td>
+					<td width="150">
+						<input type="submit" style="width:120px" name="cancel"
+							value="キャンセル"></td>
+				</tr>
+			</th:block>
+			<tr>
+				<td colspan="3">合計</td>
+				<td th:text="${totalPrice}"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+</body>
+</html>
