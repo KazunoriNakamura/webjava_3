@@ -16,7 +16,6 @@ td {padding:5px;color:black;background:#f0f0f0;}
 			<tr>
 				<th width="50">商品ID</th>
 				<th width="150">商品名</th>
-				<!--<th width="150">イメージ</th>-->
 				<th width="50">価格</th>
 				<th width="200"></th>
 			</tr>
@@ -27,8 +26,7 @@ td {padding:5px;color:black;background:#f0f0f0;}
 				<table class="table">
 					<tr>
 						<td width="50" th:text="${entry.value.itemid}"></td>
-						<td width="150" th:text="${entry.value.name}"></td>
-						<!--<img src="nyumon.jpg" alt="商品見本" title="商品イメージ">-->
+
 						<td width="50" th:text="${entry.value.price}"></td>
 						<td width="200">
 						<input type="hidden" name="itemid"
@@ -41,7 +39,7 @@ td {padding:5px;color:black;background:#f0f0f0;}
 			</form>
 		</th:block>
 	</div>
-<div class="container">
+	<div class="container">
 <h1>カート情報</h1>
 	<form th:action="@{/Del}" method="POST" th:object="${form}">
 		<table>
@@ -55,7 +53,7 @@ td {padding:5px;color:black;background:#f0f0f0;}
 			<th:block th:each="order: ${orderList}">
 				<tr>
 					<td th:text="${order.itemid}"></td>
-					<td th:text="${itemList.get(order.itemid).name}"></td>
+
 					<td th:text="${itemList.get(order.itemid).price}"></td>
 					<td th:text="${order.num}"></td>
 					<td width="150">

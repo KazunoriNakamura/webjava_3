@@ -1,23 +1,23 @@
 package jp.co.systena.tigerscave.shoppingdb.view;
 
 public class Item {
-  private int  itemid,price;
-  private String name;
+  private int  item_id,price;
+  private String item_name;
 
-  public void setName(String name){
-    this.name = name;
+  public void setItem_name(String item_name){
+    this.item_name = item_name;
   }
 
-  public String getName(){
-    return this.name;
+  public String getItem_Name(){
+    return this.item_name;
   }
 
-  public void setItemid(int itemid){
-    this.itemid = itemid;
+  public void setItem_id(int item_id){
+    this.item_id = item_id;
   }
 
   public int  getItemid(){
-    return this.itemid;
+    return this.item_id;
   }
 
   public void setPrice(int price){

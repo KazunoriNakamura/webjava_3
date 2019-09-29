@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,15 @@ public class ListController {
   @Autowired
   HttpSession session;
 
-  int itemid,price;
-  String name;
+  @Autowired
+  ListService listservice;
+
+  @Autowired
+  private  JdbcTemplate jdbcTemplate;
+
   @RequestMapping(value = "/Show", method = RequestMethod.GET) // URLとのマッピング
   public ModelAndView  show(ModelAndView  mav) {
-    ListService listservice = new ListService();
+
     List<Item> itemList = listservice.getItemList();
 
     Map<Integer, Item> itemListMap = new HashMap<Integer, Item>();
@@ -96,6 +101,12 @@ public class ListController {
 
     // セッションへ保存
     session.setAttribute("cart", cart);
+
+    // 購入履歴DBを更新
+    jdbcTemplate.update(
+        "UPDATE history SET item_num = item_num +? WHERE item_id = ?",
+        form.getNum(),
+        form.getItemid());
 
     return new ModelAndView("redirect:/Show");
 
