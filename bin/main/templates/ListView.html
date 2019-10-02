@@ -25,9 +25,9 @@ td {padding:5px;color:black;background:#f0f0f0;}
 
 				<table class="table">
 					<tr>
-						<td width="50" th:text="${entry.value.itemid}"></td>
-
-						<td width="50" th:text="${entry.value.price}"></td>
+						<td width="50" th:text="${entry.value.getItemid()}"></td>
+  						<td width="150" th:text="${entry.value.getItem_Name()}">
+						<td width="50" th:text="${entry.value.getPrice()}"></td>
 						<td width="200">
 						<input type="hidden" name="itemid"
 							th:value="${entry.value.itemid}">
@@ -53,7 +53,7 @@ td {padding:5px;color:black;background:#f0f0f0;}
 			<th:block th:each="order: ${orderList}">
 				<tr>
 					<td th:text="${order.itemid}"></td>
-
+					<td th:text="${itemList.get(order.itemid).getItem_Name()}"></td>
 					<td th:text="${itemList.get(order.itemid).price}"></td>
 					<td th:text="${order.num}"></td>
 					<td width="150">
